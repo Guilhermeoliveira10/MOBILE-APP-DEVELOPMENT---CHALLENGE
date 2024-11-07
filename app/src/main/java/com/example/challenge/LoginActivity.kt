@@ -18,7 +18,6 @@ class LoginActivity : AppCompatActivity() {
         val esqueciSenhaTextView = findViewById<TextView>(R.id.esqueciSenhaTextView)
 
         cadastrarButton.setOnClickListener {
-            // Simula o cadastro com um Toast
             Toast.makeText(this, "Cadastro simulado", Toast.LENGTH_SHORT).show()
         }
 
@@ -27,10 +26,9 @@ class LoginActivity : AppCompatActivity() {
             val senha = senhaEditText.text.toString()
 
             if (email.isNotEmpty() && senha.isNotEmpty()) {
-                // Redireciona para a MainMenuActivity
                 val intent = Intent(this, MainMenuActivity::class.java)
                 startActivity(intent)
-                finish() // Finaliza a LoginActivity para que o usuário não possa voltar a ela
+                finish()
             } else {
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             }

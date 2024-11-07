@@ -14,7 +14,6 @@ interface ApiService {
     @GET("advice/{category}")
     suspend fun getAdvice(@Path("category") category: String): Response<AdviceResponse>
 
-    // Novo método para obter perguntas
     @GET("questions")
     suspend fun getQuestions(): Response<List<QuestionResponse>>
 }

@@ -21,7 +21,6 @@ class AlarmActivity : AppCompatActivity() {
 
         timePicker.setIs24HourView(true)
 
-        // Define o horário usando TimePicker
         setAlarmButton.setOnClickListener {
             val hour: Int
             val minute: Int
@@ -37,11 +36,9 @@ class AlarmActivity : AppCompatActivity() {
             Toast.makeText(this, "Alarme definido para: $hour:$minute", Toast.LENGTH_SHORT).show()
         }
 
-        // Obter o horário atual da API e exibir no TextView
         getCurrentTimeButton.setOnClickListener {
             lifecycleScope.launch {
                 try {
-                    // Aqui, usamos RetrofitClientWorldTime para obter o horário
                     val response = RetrofitClientWorldTime.instance.getTime("America", "Sao_Paulo")
                     if (response.isSuccessful) {
                         val time = response.body()?.datetime
@@ -63,6 +60,5 @@ class AlarmActivity : AppCompatActivity() {
             set(Calendar.SECOND, 0)
         }
 
-        // Lógica para definir um alarme real pode ser adicionada aqui com AlarmManager
     }
 }

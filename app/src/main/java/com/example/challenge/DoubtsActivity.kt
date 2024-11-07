@@ -20,7 +20,6 @@ class DoubtsActivity : AppCompatActivity() {
         val btnToothache = findViewById<Button>(R.id.btnToothache)
         val adviceTextView = findViewById<TextView>(R.id.adviceTextView)
 
-        // Carregar o conselho com base no botão pressionado
         btnToothCare.setOnClickListener { loadAdvice("toothCare", adviceTextView) }
         btnGoodHabits.setOnClickListener { loadAdvice("goodHabits", adviceTextView) }
         btnDentalFloss.setOnClickListener { loadAdvice("dentalFloss", adviceTextView) }

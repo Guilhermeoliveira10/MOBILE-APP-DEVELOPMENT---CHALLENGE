@@ -11,7 +11,7 @@ class QuizActivity : AppCompatActivity() {
 
     private var currentQuestionIndex = 0
     private lateinit var questions: List<QuestionResponse>
-    private val userAnswers = mutableListOf<Pair<String, Boolean>>() // Armazenar respostas do usuário
+    private val userAnswers = mutableListOf<Pair<String, Boolean>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +20,10 @@ class QuizActivity : AppCompatActivity() {
         val questionTextView = findViewById<TextView>(R.id.questionTextView)
         val answersRadioGroup = findViewById<RadioGroup>(R.id.answersRadioGroup)
         val submitAnswerButton = findViewById<Button>(R.id.submitAnswerButton)
-        val resultsLayout = findViewById<LinearLayout>(R.id.resultsLayout) // LinearLayout para resultados
+        val resultsLayout = findViewById<LinearLayout>(R.id.resultsLayout)
 
-        // Fazer a requisição de perguntas da API
         loadQuestions()
 
-        // Configuração do botão de envio
         submitAnswerButton.setOnClickListener {
             val selectedOptionId = answersRadioGroup.checkedRadioButtonId
             if (selectedOptionId != -1) {
@@ -33,13 +31,10 @@ class QuizActivity : AppCompatActivity() {
                 val answer = selectedRadioButton.text.toString()
                 val isCorrect = checkAnswer(answer)
 
-                // Armazenar a resposta do usuário
                 userAnswers.add(Pair(answer, isCorrect))
 
-                // Limpar a seleção após enviar
                 answersRadioGroup.clearCheck()
 
-                // Passar para a próxima pergunta
                 currentQuestionIndex++
                 if (currentQuestionIndex < questions.size) {
                     displayQuestion(questions[currentQuestionIndex])
@@ -77,12 +72,11 @@ class QuizActivity : AppCompatActivity() {
         val answersRadioGroup = findViewById<RadioGroup>(R.id.answersRadioGroup)
 
         questionTextView.text = question.question
-        answersRadioGroup.removeAllViews() // Limpa o RadioGroup antes de adicionar novas opções
+        answersRadioGroup.removeAllViews()
 
-        // Adiciona as opções de resposta em ordem sem duplicação
         question.options.forEachIndexed { index, option ->
             val radioButton = RadioButton(this)
-            radioButton.text = option // Mantém a formatação original da opção
+            radioButton.text = option
             answersRadioGroup.addView(radioButton)
         }
     }
@@ -93,7 +87,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun displayResults(resultsLayout: LinearLayout) {
-        resultsLayout.removeAllViews() // Limpa os resultados antes de exibir novos
+        resultsLayout.removeAllViews()
         userAnswers.forEachIndexed { index, answer ->
             val question = questions[index]
             val resultView = LinearLayout(this)
@@ -102,13 +96,11 @@ class QuizActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            resultView.setPadding(16, 16, 16, 16) // Adiciona espaçamento entre os resultados
+            resultView.setPadding(16, 16, 16, 16)
 
-            // Formata a resposta
             val answerText = TextView(this)
-            answerText.text = "${index + 1} - Sua Resposta: ${answer.first}" // Número da pergunta e resposta do usuário
+            answerText.text = "${index + 1} - Sua Resposta: ${answer.first}"
 
-            // Adiciona a resposta correta
             val correctAnswerText = TextView(this)
             correctAnswerText.text = "Resposta Correta: ${questions[index].correct_answer}"
 
@@ -118,6 +110,6 @@ class QuizActivity : AppCompatActivity() {
             resultsLayout.addView(resultView)
         }
 
-        resultsLayout.visibility = View.VISIBLE // Certifique-se de que o layout de resultados esteja visível
+        resultsLayout.visibility = View.VISIBLE
     }
 }
